@@ -9,9 +9,17 @@ from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, ListView
+from rest_framework import generics
 
 from users.forms import LoginForm, UserRegisterForm
-from users.models import User
+from users.models import User, Billing
+from users.serializers import BillingSerializer
+
+
+class BillingListAPIView(generics.ListAPIView):
+    serializer_class = BillingSerializer
+    queryset = Billing.objects.all()
+    filterset_fields = ('payday', 'course', 'lesson', 'payment_method')
 
 
 class LoginView(BaseLoginView):
