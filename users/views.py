@@ -10,16 +10,21 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, ListView
 from rest_framework import generics
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 from users.forms import LoginForm, UserRegisterForm
 from users.models import User, Billing
-from users.serializers import BillingSerializer
+from users.serializers import BillingSerializer, MyTokenObtainPairSerializer
 
 
 class BillingListAPIView(generics.ListAPIView):
     serializer_class = BillingSerializer
     queryset = Billing.objects.all()
     filterset_fields = ('payday', 'course', 'lesson', 'payment_method')
+
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
 
 
 class LoginView(BaseLoginView):
