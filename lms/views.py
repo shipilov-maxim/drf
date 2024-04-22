@@ -13,7 +13,6 @@ class CourseViewSet(viewsets.ModelViewSet):
         return CourseSerializer
 
 
-
 class LessonCreateAPIView(generics.CreateAPIView):
     serializer_class = LessonSerializer
 
