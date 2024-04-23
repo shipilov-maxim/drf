@@ -9,7 +9,8 @@ from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, ListView
-from rest_framework import generics
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import generics, filters
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from users.forms import LoginForm, UserRegisterForm
@@ -20,8 +21,9 @@ from users.serializers import BillingSerializer, MyTokenObtainPairSerializer
 class BillingListAPIView(generics.ListAPIView):
     serializer_class = BillingSerializer
     queryset = Billing.objects.all()
+    filter_backends = (DjangoFilterBackend, filters.OrderingFilter)
     filterset_fields = ('course', 'lesson', 'payment_method')
-    ordering_fields = ('payday', )
+    ordering_fields = ('payday',)
 
 
 class MyTokenObtainPairView(TokenObtainPairView):
