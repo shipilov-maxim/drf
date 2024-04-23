@@ -1,0 +1,225 @@
+[
+  {
+    "model": "lms.course",
+    "pk": 1,
+    "fields": {
+      "title": "python",
+      "preview": "",
+      "description": ""
+    }
+  },
+  {
+    "model": "lms.course",
+    "pk": 2,
+    "fields": {
+      "title": "react",
+      "preview": "",
+      "description": ""
+    }
+  },
+  {
+    "model": "lms.lesson",
+    "pk": 1,
+    "fields": {
+      "title": "ооп",
+      "preview": "",
+      "description": "",
+      "url_video": null,
+      "course": 1
+    }
+  },
+  {
+    "model": "lms.lesson",
+    "pk": 2,
+    "fields": {
+      "title": "sql",
+      "preview": "",
+      "description": "",
+      "url_video": null,
+      "course": 1
+    }
+  },
+  {
+    "model": "lms.lesson",
+    "pk": 3,
+    "fields": {
+      "title": "django",
+      "preview": "",
+      "description": "",
+      "url_video": null,
+      "course": 1
+    }
+  },
+  {
+    "model": "lms.lesson",
+    "pk": 4,
+    "fields": {
+      "title": "drf",
+      "preview": "",
+      "description": "",
+      "url_video": null,
+      "course": 1
+    }
+  },
+  {
+    "model": "lms.lesson",
+    "pk": 5,
+    "fields": {
+      "title": "row",
+      "preview": "",
+      "description": "",
+      "url_video": null,
+      "course": 2
+    }
+  },
+  {
+    "model": "lms.lesson",
+    "pk": 6,
+    "fields": {
+      "title": "col",
+      "preview": "",
+      "description": "",
+      "url_video": null,
+      "course": 2
+    }
+  },
+  {
+    "model": "lms.lesson",
+    "pk": 7,
+    "fields": {
+      "title": "li",
+      "preview": "",
+      "description": "",
+      "url_video": null,
+      "course": 2
+    }
+  },
+  {
+    "model": "lms.lesson",
+    "pk": 8,
+    "fields": {
+      "title": "hr",
+      "preview": "",
+      "description": "",
+      "url_video": null,
+      "course": 2
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$an6Qd4asspz2XPaU9OTbFM$BPH5KBqkTiLa5ZwvmMCVYvGOtsqoZyU3QfRKz4p1pJI=",
+      "last_login": "2024-04-23T16:17:21.599Z",
+      "is_superuser": true,
+      "first_name": "Admin",
+      "last_name": "Adminov",
+      "is_staff": true,
+      "date_joined": "2024-04-23T16:16:57.228Z",
+      "email": "admin@admin.com",
+      "phone": null,
+      "city": null,
+      "avatar": "",
+      "token": null,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.billing",
+    "pk": 1,
+    "fields": {
+      "payday": "2024-04-23T16:22:22Z",
+      "user": 1,
+      "course": 1,
+      "lesson": null,
+      "payment_amount": 34534,
+      "payment_method": "CASH"
+    }
+  },
+  {
+    "model": "users.billing",
+    "pk": 2,
+    "fields": {
+      "payday": "2024-04-23T16:23:07Z",
+      "user": 1,
+      "course": 2,
+      "lesson": null,
+      "payment_amount": 345634,
+      "payment_method": "TRANS"
+    }
+  },
+  {
+    "model": "users.billing",
+    "pk": 3,
+    "fields": {
+      "payday": "2024-04-23T16:23:24Z",
+      "user": 1,
+      "course": null,
+      "lesson": 1,
+      "payment_amount": 345,
+      "payment_method": "CASH"
+    }
+  },
+  {
+    "model": "users.billing",
+    "pk": 4,
+    "fields": {
+      "payday": "2024-04-23T16:23:36Z",
+      "user": 1,
+      "course": null,
+      "lesson": 8,
+      "payment_amount": 3456,
+      "payment_method": "TRANS"
+    }
+  },
+  {
+    "model": "users.billing",
+    "pk": 5,
+    "fields": {
+      "payday": "2024-04-23T16:23:52Z",
+      "user": 1,
+      "course": null,
+      "lesson": 2,
+      "payment_amount": 456,
+      "payment_method": "CASH"
+    }
+  },
+  {
+    "model": "users.billing",
+    "pk": 6,
+    "fields": {
+      "payday": "2024-04-23T16:24:03Z",
+      "user": 1,
+      "course": null,
+      "lesson": 4,
+      "payment_amount": 4563,
+      "payment_method": "CASH"
+    }
+  },
+  {
+    "model": "users.billing",
+    "pk": 7,
+    "fields": {
+      "payday": "2024-04-23T16:24:17Z",
+      "user": 1,
+      "course": null,
+      "lesson": 6,
+      "payment_amount": 346,
+      "payment_method": "CASH"
+    }
+  },
+  {
+    "model": "users.billing",
+    "pk": 8,
+    "fields": {
+      "payday": "2024-04-23T16:24:36Z",
+      "user": 1,
+      "course": null,
+      "lesson": 2,
+      "payment_amount": 34623,
+      "payment_method": "CASH"
+    }
+  }
+]

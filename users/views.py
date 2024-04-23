@@ -20,7 +20,8 @@ from users.serializers import BillingSerializer, MyTokenObtainPairSerializer
 class BillingListAPIView(generics.ListAPIView):
     serializer_class = BillingSerializer
     queryset = Billing.objects.all()
-    filterset_fields = ('payday', 'course', 'lesson', 'payment_method')
+    filterset_fields = ('course', 'lesson', 'payment_method')
+    ordering_fields = ('payday', )
 
 
 class MyTokenObtainPairView(TokenObtainPairView):
