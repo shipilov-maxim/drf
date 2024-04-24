@@ -7,20 +7,19 @@ from users.models import User
 class Command(BaseCommand):
     def handle(self, *args, **options):
         try:
-            Group.objects.get(name="менеджер").delete()
+            Group.objects.get(name="модератор").delete()
         except Group.DoesNotExist:
             pass
-        moderator = Group.objects.create(name="менеджер")
-        # moderator.permissions.set([24, 25, 41, 42],)
+        moderator = Group.objects.create(name="модератор")
         moderator.save()
         try:
-            User.objects.get(email='manager@manager.com').delete()
+            User.objects.get(email='moderator@moderator.com').delete()
         except User.DoesNotExist:
             pass
         user = User.objects.create(
-            email='manager@manager.com',
-            first_name='Manager',
-            last_name='Managerov',
+            email='moderator@moderator.com',
+            first_name='Moderator',
+            last_name='Moderatorov',
             is_staff=True,
             is_active=True,
         )
