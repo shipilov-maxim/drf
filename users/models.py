@@ -14,7 +14,7 @@ class User(AbstractUser):
     city = models.CharField(max_length=50, verbose_name='Город', **NULLABLE)
     avatar = models.ImageField(upload_to='avatar/', verbose_name='Аватар', **NULLABLE)
     token = models.CharField(max_length=35, verbose_name='token', **NULLABLE)
-    is_active = models.BooleanField(default=False, verbose_name='Статус')
+    is_active = models.BooleanField(default=True, verbose_name='Статус')
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
