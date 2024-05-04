@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
@@ -35,10 +36,11 @@ class Billing(models.Model):
         ('CASH', 'Наличными'),
         ('TRANS', 'Перевод на счёт')
     ]
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, verbose_name='Пользователь',
+                             **NULLABLE)
     payday = models.DateTimeField(auto_created=True, verbose_name='Дата оплаты')
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='Курс', blank=True, null=True)
-    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, verbose_name='Урок', blank=True, null=True)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='Курс', **NULLABLE)
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, verbose_name='Урок', **NULLABLE)
     payment_amount = models.PositiveIntegerField(verbose_name='Сумма оплаты')
     payment_method = models.CharField(choices=CHOICES, verbose_name='Способ оплаты')
 
@@ -48,3 +50,14 @@ class Billing(models.Model):
     class Meta:
         verbose_name = 'Платёж'
         verbose_name_plural = 'Платежи'
+
+
+class Subscription(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='Курс', related_name='subscriptions',
+                               **NULLABLE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, verbose_name='Пользователь',
+                             **NULLABLE)
+
+    class Meta:
+        verbose_name = 'подписка'
+        verbose_name_plural = 'подписки'

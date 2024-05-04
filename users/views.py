@@ -1,8 +1,12 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, filters, viewsets
+from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
-from users.models import User, Billing
+from lms.models import Course
+from users.models import User, Billing, Subscription
 from users.serializers import BillingSerializer, UserSerializer
 
 
@@ -34,3 +38,17 @@ class UserViewSet(viewsets.ModelViewSet):
         self.serializer_class = serializer.save()
         self.serializer_class.set_password(self.serializer_class.password)
         self.serializer_class.save()
+
+
+class SubscriptionAPIView(APIView):
+
+    def post(self, *args, **kwargs):
+        course = get_object_or_404(Course, id=self.request.data.get('course'))
+        subs_item = Subscription.objects.filter(course=course, user=self.request.user)
+        if subs_item.exists():
+            subs_item.delete()
+            message = 'Подписка отменена'
+        else:
+            Subscription.objects.create(user=self.request.user, course=course)
+            message = 'Подписка оформлена'
+        return Response({"message": message})

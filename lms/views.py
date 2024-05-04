@@ -2,12 +2,14 @@ from rest_framework import viewsets, generics
 from rest_framework.permissions import IsAuthenticated
 
 from lms.models import Course, Lesson
+from lms.paginators import PaginationClass
 from lms.permissions import IsModer, IsOwner
 from lms.serializers import CourseSerializer, LessonSerializer, CourseDetailSerializer
 
 
 class CourseViewSet(viewsets.ModelViewSet):
     queryset = Course.objects.all()
+    pagination_class = PaginationClass
 
     def get_permissions(self):
         if self.action in ['create']:
@@ -42,6 +44,7 @@ class LessonCreateAPIView(generics.CreateAPIView):
 class LessonListAPIView(generics.ListAPIView):
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
+    pagination_class = PaginationClass
 
 
 class LessonRetrieveAPIView(generics.RetrieveAPIView):
