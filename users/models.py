@@ -53,7 +53,8 @@ class Billing(models.Model):
 
 
 class Subscription(models.Model):
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='Курс', **NULLABLE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='Курс', related_name='subscriptions',
+                               **NULLABLE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, verbose_name='Пользователь',
                              **NULLABLE)
 
