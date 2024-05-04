@@ -38,11 +38,13 @@ class Billing(models.Model):
     ]
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, verbose_name='Пользователь',
                              **NULLABLE)
-    payday = models.DateTimeField(auto_created=True, verbose_name='Дата оплаты')
+    payday = models.DateTimeField(auto_created=True, verbose_name='Дата оплаты', **NULLABLE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='Курс', **NULLABLE)
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, verbose_name='Урок', **NULLABLE)
     payment_amount = models.PositiveIntegerField(verbose_name='Сумма оплаты')
-    payment_method = models.CharField(choices=CHOICES, verbose_name='Способ оплаты')
+    payment_method = models.CharField(choices=CHOICES, verbose_name='Способ оплаты', default='TRANS')
+    session_id = models.CharField(max_length=255, verbose_name='id сессии', **NULLABLE)
+    link = models.URLField(max_length=400, verbose_name='Ссылка на оплату', **NULLABLE)
 
     def __str__(self):
         return f'{self.user} {self.course if self.course else self.lesson}'
