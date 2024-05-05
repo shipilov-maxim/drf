@@ -63,7 +63,7 @@ class BillingCreateAPIView(generics.CreateAPIView):
         if billing.course:
             name = billing.course.title
         elif billing.lesson:
-            name = billing.course.lesson
+            name = billing.lesson.title
         else:
             return Response({"message": 'Вы не указали курс либо урок'})
         price = create_price(billing.payment_amount, name)
