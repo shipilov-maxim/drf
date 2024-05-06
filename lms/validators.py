@@ -6,5 +6,5 @@ class YoutubeURLValidator:
         self.field = field
 
     def __call__(self, value):
-        if 'youtube.com' not in value[self.field]:
+        if value.get(self.field) and 'youtube.com' not in value.get(self.field):
             raise ValidationError('Ссылка должна быть только на Yotube')

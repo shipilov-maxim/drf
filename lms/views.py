@@ -5,6 +5,7 @@ from lms.models import Course, Lesson
 from lms.paginators import PaginationClass
 from lms.permissions import IsModer, IsOwner
 from lms.serializers import CourseSerializer, LessonSerializer, CourseDetailSerializer
+from lms.tasks import add_numbers
 
 
 class CourseViewSet(viewsets.ModelViewSet):
@@ -45,6 +46,8 @@ class LessonListAPIView(generics.ListAPIView):
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
     pagination_class = PaginationClass
+    result = add_numbers.delay()
+    result.get()
 
 
 class LessonRetrieveAPIView(generics.RetrieveAPIView):
