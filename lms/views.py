@@ -47,7 +47,7 @@ class LessonListAPIView(generics.ListAPIView):
     queryset = Lesson.objects.all()
     pagination_class = PaginationClass
     result = add_numbers.delay()
-    result.get()
+    # result.get()
 
 
 class LessonRetrieveAPIView(generics.RetrieveAPIView):
