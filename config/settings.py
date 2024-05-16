@@ -13,7 +13,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.0.102']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -46,7 +46,7 @@ MIDDLEWARE = [
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': ['rest_framework_simplejwt.authentication.JWTAuthentication'],
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
-    'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.IsAuthenticated'],
+    'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.AllowAny'],
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
 }
 
@@ -141,3 +141,4 @@ CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND')
 CELERY_TIMEZONE = TIME_ZONE
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
+CELERY_TASK_ALWAYS_EAGER = True
