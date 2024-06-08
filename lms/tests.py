@@ -130,35 +130,32 @@ class LessonTestCase(APITestCase):
         }
                          )
 
+    def test_lesson_create(self):
+        url = reverse('lms:lesson-create')
+        data = {
+            'title': 'Test',
+            'url_video': 'https://www.youtube.com/watch?v=hQYhdHjP-gM'
+        }
+        response = self.client.post(url, data)
 
-def test_lesson_create(self):
-    url = reverse('lms:lesson-create')
-    data = {
-        'title': 'Test',
-        'url_video': 'https://www.youtube.com/watch?v=hQYhdHjP-gM'
-    }
-    response = self.client.post(url, data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Lesson.objects.all().count(), 2)
 
-    self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-    self.assertEqual(Lesson.objects.all().count(), 2)
+    def test_lesson_update(self):
+        url = reverse('lms:lesson-update', args=(self.lesson.pk,))
+        data = {'title': 'Test', 'url_video': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'}
+        response = self.client.patch(url, data)
+        data = response.json()
 
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(data.get('title'), 'Test')
 
-def test_lesson_update(self):
-    url = reverse('lms:lesson-update', args=(self.lesson.pk,))
-    data = {'title': 'Test', 'url_video': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'}
-    response = self.client.patch(url, data)
-    data = response.json()
+    def test_lesson_delete(self):
+        url = reverse('lms:lesson-delete', args=(self.lesson.pk,))
+        response = self.client.delete(url)
 
-    self.assertEqual(response.status_code, status.HTTP_200_OK)
-    self.assertEqual(data.get('title'), 'Test')
-
-
-def test_lesson_delete(self):
-    url = reverse('lms:lesson-delete', args=(self.lesson.pk,))
-    response = self.client.delete(url)
-
-    self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-    self.assertEqual(Lesson.objects.all().count(), 0)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(Lesson.objects.all().count(), 0)
 
 
 class SubscriptionTestCase(APITestCase):

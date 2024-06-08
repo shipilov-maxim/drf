@@ -8,6 +8,7 @@ from rest_framework.views import APIView
 from lms.models import Course
 from users.models import User, Billing, Subscription
 from users.serializers import BillingSerializer, UserSerializer
+from users.services import create_price, create_session
 
 
 class BillingListAPIView(generics.ListAPIView):
@@ -52,3 +53,21 @@ class SubscriptionAPIView(APIView):
             Subscription.objects.create(user=self.request.user, course=course)
             message = 'Подписка оформлена'
         return Response({"message": message})
+
+
+class BillingCreateAPIView(generics.CreateAPIView):
+    serializer_class = BillingSerializer
+
+    def perform_create(self, serializer):
+        billing = serializer.save(user=self.request.user)
+        if billing.course:
+            name = billing.course.title
+        elif billing.lesson:
+            name = billing.lesson.title
+        else:
+            return Response({"message": 'Вы не указали курс либо урок'})
+        price = create_price(billing.payment_amount, name)
+        session_id, link = create_session(price)
+        billing.session_id = session_id
+        billing.link = link
+        billing.save()

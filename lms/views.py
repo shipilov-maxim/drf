@@ -5,6 +5,7 @@ from lms.models import Course, Lesson
 from lms.paginators import PaginationClass
 from lms.permissions import IsModer, IsOwner
 from lms.serializers import CourseSerializer, LessonSerializer, CourseDetailSerializer
+from lms.tasks import update_course
 
 
 class CourseViewSet(viewsets.ModelViewSet):
@@ -29,6 +30,11 @@ class CourseViewSet(viewsets.ModelViewSet):
         self.serializer_class = serializer.save()
         self.serializer_class.owner = self.request.user
         self.serializer_class.save()
+
+    def perform_update(self, serializer):
+        course = serializer.save()
+        recipients = [sub.user.email for sub in course.subscriptions.all()]
+        update_course.delay(recipients, course.title)
 
 
 class LessonCreateAPIView(generics.CreateAPIView):
